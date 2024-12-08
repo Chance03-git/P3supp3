@@ -8,7 +8,12 @@ import org.junit.jupiter.api.Test;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
-
+/**
+ * HelloWorldApp demonstrates a simple web server with a single GET endpoint
+ * at the root ("/") that responds with "hello world".
+ * 
+ * It also includes tests for the endpoint.
+ */
 public class HelloWorldApp {
 
     /**
