@@ -1,26 +1,14 @@
+import static spark.Spark.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 public class HelloWorldServer {
-    public static void runTests() throws Exception {
-        // Test the root endpoint
-        System.out.println("Running tests...");
+    public void testHelloWorldEndpoint() {
+        // Send a GET request to the server
+        HttpResponse<String> response = Unirest.get("http://localhost:4567/").asString();
 
-        // Create a connection to the root endpoint
-        URL url = new URL("http://localhost:4567/");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        // Read the response
-        Scanner scanner = new Scanner(connection.getInputStream());
-        String response = scanner.useDelimiter("\\A").next();
-        scanner.close();
-
-        // Verify the response
-        if ("hello world".equals(response)) {
-            System.out.println("Test passed: Root endpoint responded with 'hello world'.");
-        } else {
-            throw new Exception("Root endpoint did not respond with 'hello world'.");
-        }
-
-        // Stop the server after the test
-        stopServer();
+        // Verify the response status code and body
+        assertEquals(200, response.getStatus());
+        assertEquals("hello world", response.getBody());
     }
 }
